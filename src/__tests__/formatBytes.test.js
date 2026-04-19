@@ -38,3 +38,14 @@ describe('formatBytes', () => {
   })
 
 })
+
+  // Edge cases from subagent verification
+  test('bytes > PB range clamps to PB', () => {
+    const result = formatBytes(Math.pow(1024, 6))
+    expect(result).toMatch(/PB$/)
+  })
+
+  test('non-number input throws Error', () => {
+    expect(() => formatBytes(null)).toThrow('bytes must be a number')
+    expect(() => formatBytes('1kb')).toThrow('bytes must be a number')
+  })
